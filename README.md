@@ -2,7 +2,9 @@
 
 一个美观的本地 Skill 浏览器，用于扫描和预览 Codex / Agent / Claude 的 SKILL.md 文件。
 
-![Platform Support](https://img.shields.io/badge/platform-Windows%2011%20%7C%20macOS%20%7C%20Linux-lightgrey) ![License](https://img.shields.io/badge/license-MIT-blue)
+[![Platform Support](https://img.shields.io/badge/platform-Windows%2011%20%7C%20macOS%20%7C%20Linux-lightgrey)](https://github.com/thenicealex/skillshow) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![Demo](https://img.shields.io/badge/demo-GitHub%20Pages-brightgreen)](https://thenicealex.github.io/skillshow/)
+
+👉 **[在线体验 Demo](https://thenicealex.github.io/skillshow/)**
 
 ## ✨ 功能特性
 
@@ -15,6 +17,10 @@
 - **⚡ 高性能**: 并行文件读取、骨架屏加载、文件数量限制
 
 ## 🚀 快速开始
+
+### 在线体验
+
+直接访问 **[Demo](https://thenicealex.github.io/skillshow/)** 查看效果（GitHub Pages 托管）。
 
 ### 方法 1: 直接打开（推荐）
 
@@ -83,8 +89,7 @@ TODO: 添加截图
 
 ```
 skillshow/
-├── skills-shower.html    # 主应用（核心文件）
-├── scan-skills.mjs      # 扫描脚本（可选）
+├── index.html           # 主应用（核心文件，GitHub Pages 入口）
 ├── README.md            # 项目文档
 └── .gitignore          # Git 忽略规则
 ```
@@ -121,7 +126,7 @@ skillshow/
 
 ## 📝 开发计划
 
-- [ ] 添加 GitHub Pages 部署
+- [x] 添加 GitHub Pages 部署
 - [ ] 支持更多文件格式（.md、.txt）
 - [ ] 导出功能（JSON、PDF）
 - [ ] 收藏/星标功能
