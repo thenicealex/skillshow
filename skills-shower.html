@@ -1151,7 +1151,6 @@
           </svg>
           选择文件夹
         </button>
-        <button class="btn" id="browseBtn">浏览…</button>
         <div class="search">
           <svg
             viewBox="0 0 24 24"
@@ -1184,19 +1183,6 @@
         <span class="badge" id="countBadge">0 个 skills</span>
         <span class="srcMeta hidden" id="srcMeta"></span>
         <span class="meta" id="sizeMeta"></span>
-      </div>
-
-      <div class="defaultdirs" id="defaultDirs">
-        <span class="ddlabel">常用目录（点击快速扫描）：</span>
-        <button class="chip" data-path="unix" title="扫描 Unix/macOS 默认目录">
-          Unix/macOS
-        </button>
-        <button class="chip" data-path="windows" title="扫描 Windows 默认目录">
-          Windows
-        </button>
-        <button class="chip" data-path="custom" title="选择自定义目录">
-          自定义目录…
-        </button>
       </div>
 
       <div class="dropzone" id="dropzone">
@@ -1773,15 +1759,7 @@
       }
 
       function updateStatus(rootLabel) {
-        const platform = detectPlatform()
-        const platformLabel =
-          platform === 'windows'
-            ? ' (Windows)'
-            : platform === 'mac'
-              ? ' (macOS)'
-              : ' (Unix)'
-        $('pathLabel').innerHTML =
-          `已扫描：<b>${esc(rootLabel)}</b>${platformLabel}`
+        $('pathLabel').innerHTML = `已扫描：<b>${esc(rootLabel)}</b>`
         $('countBadge').textContent = `${SKILLS.length} 个 skills`
         const total = SKILLS.reduce((a, s) => a + s.size, 0)
         $('sizeMeta').textContent = `共 ${fmtSize(total)}`
@@ -1993,8 +1971,7 @@
         const src = sourceOf(s.dir)
         $('mTitle').textContent = s.name
         // Display path with correct separator for platform
-        const displayPath = formatPathForDisplay(s.dir + '/SKILL.md')
-        $('mPath').textContent = displayPath
+        $('mPath').textContent = s.dir + '/SKILL.md'
         const tags = s.keywords.length
           ? s.keywords.map((k) => `<span class="tag">${esc(k)}</span>`).join('')
           : `<span class="tag muted">无触发词</span>`
@@ -2118,7 +2095,6 @@
         }
         $('dirInput').click()
       })
-      $('browseBtn').addEventListener('click', () => $('dirInput').click())
 
       $('dirInput').addEventListener('change', async (e) => {
         const files = filesFromInput(e.target.files)
