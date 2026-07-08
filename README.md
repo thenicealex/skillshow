@@ -1,6 +1,6 @@
 # SkillShow
 
-一个美观的本地 Skill 浏览器，用于扫描和预览 Codex / Agent / Claude 的 SKILL.md 文件。
+一个美观的本地 Skill 浏览器，用于扫描和预览 Codex / Agents / Claude 的 SKILL.md 文件。
 
 [![Platform Support](https://img.shields.io/badge/platform-Windows%2011%20%7C%20macOS%20%7C%20Linux-lightgrey)](https://github.com/thenicealex/skillshow) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![Demo](https://img.shields.io/badge/demo-GitHub%20Pages-brightgreen)](https://thenicealex.github.io/skillshow/)
 
@@ -21,6 +21,7 @@
 ### 在线体验
 
 直接访问 **[Demo](https://thenicealex.github.io/skillshow/)** 查看效果（GitHub Pages 托管）。
+本地单文件版本不再内嵌完整示例数据，打开后请通过"选择文件夹"或拖拽目录扫描本机 skills。
 
 ### 方法 1: 直接打开（推荐）
 
@@ -102,12 +103,12 @@ skillshow/
 
 **Unix/macOS:**
 - `~/.codex/skills/`
-- `~/.agent/skills/`
+- `~/.agents/skills/`
 - `~/.claude/skills/`
 
 **Windows:**
 - `%USERPROFILE%\.codex\skills\`
-- `%USERPROFILE%\.agent\skills\`
+- `%USERPROFILE%\.agents\skills\`
 - `%USERPROFILE%\.claude\skills\`
 
 ### 主题设置
@@ -128,6 +129,7 @@ skillshow/
 
 - [x] 添加 GitHub Pages 部署
 - [ ] 支持更多文件格式（.md、.txt）
+- [ ] 添加 Skill token 统计：先估算 `SKILL.md` token，展示单个 skill 与总 token 数，并支持按 token 排序；后续可选接入 `js-tiktoken/lite` 本地编码表做精确统计
 - [ ] 导出功能（JSON、PDF）
 - [ ] 收藏/星标功能
 - [ ] 更多主题选项
