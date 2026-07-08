@@ -1,4 +1,4 @@
-# SkillShow - Codex Skills 浏览器
+# SkillShow
 
 一个美观的本地 Skill 浏览器，用于扫描和预览 Codex / Agent / Claude 的 SKILL.md 文件。
 

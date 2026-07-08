@@ -41,3 +41,7 @@ build/
 .fseventsd/
 .TemporaryItems/
 .Trashes/
+
+# AI
+.claude/
+.codegraph/

@@ -368,6 +368,61 @@
         white-space: nowrap;
         font-size: 12.5px;
       }
+      .statusbar .srcMeta {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        min-width: 0;
+      }
+      .source-stat {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 4px 6px 4px 10px;
+        border: 1px solid
+          color-mix(in srgb, var(--dc, var(--text-faint)) 34%, transparent);
+        border-radius: 999px;
+        background:
+          linear-gradient(
+            180deg,
+            color-mix(in srgb, var(--dc, var(--text-faint)) 12%, transparent),
+            color-mix(in srgb, var(--dc, var(--text-faint)) 5%, transparent)
+          ),
+          var(--surface-2);
+        color: var(--text-dim);
+        font-family: var(--mono);
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1;
+        white-space: nowrap;
+      }
+      .source-stat i {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--dc, var(--text-faint));
+        box-shadow: 0 0 0 3px
+          color-mix(in srgb, var(--dc, var(--text-faint)) 18%, transparent);
+        flex: none;
+      }
+      .source-stat b {
+        min-width: 18px;
+        height: 18px;
+        padding: 0 6px;
+        border-radius: 999px;
+        background: color-mix(
+          in srgb,
+          var(--dc, var(--text-faint)) 16%,
+          var(--surface-3)
+        );
+        color: var(--text);
+        display: grid;
+        place-items: center;
+        font-family: var(--font);
+        font-size: 11px;
+        font-weight: 700;
+      }
 
       /* Dropzone */
       .dropzone {
@@ -1087,6 +1142,18 @@
           padding: 4px 10px;
           font-size: 11px;
         }
+        .statusbar .srcMeta {
+          gap: 6px;
+        }
+        .source-stat {
+          padding: 4px 5px 4px 8px;
+          font-size: 11px;
+        }
+        .source-stat b {
+          min-width: 17px;
+          height: 17px;
+          font-size: 10.5px;
+        }
         .card .name {
           font-size: 15px;
         }
@@ -1205,7 +1272,8 @@
       <div class="empty hidden" id="emptyState">
         <div class="big">📂</div>
         <div class="msg" id="emptyMsg">
-          还没有选择待导入的目录。请选择一个包含 <b>SKILL.md</b> 的目录开始扫描。
+          还没有选择待导入的目录。请选择一个包含
+          <b>SKILL.md</b> 的目录开始扫描。
         </div>
         <div class="sub" id="emptySub"></div>
       </div>
@@ -1792,7 +1860,7 @@
                     : k === '.claude'
                       ? SRC.claude.color
                       : SRC.other.color
-              return `<span class="dot" style="--dc:${color}"><i></i>${esc(k)} ${c}</span>`
+              return `<span class="source-stat" style="--dc:${color}"><i></i><span>${esc(k)}</span><b>${c}</b></span>`
             })
             .join('')
         } else {
@@ -2185,10 +2253,10 @@
       }
 
       const DEFAULT_PATHS = {
-        unix: ['~/.codex/skills/', '~/.agent/skills/', '~/.claude/skills/'],
+        unix: ['~/.codex/skills/', '~/.agents/skills/', '~/.claude/skills/'],
         windows: [
           '%USERPROFILE%\\.codex\\skills\\',
-          '%USERPROFILE%\\.agent\\skills\\',
+          '%USERPROFILE%\\.agents\\skills\\',
           '%USERPROFILE%\\.claude\\skills\\'
         ]
       }
@@ -2258,7 +2326,7 @@
           try {
             SKILLS = JSON.parse(emb.textContent)
             updateStatus(
-              '默认目录（~/.codex/skills/ · ~/.agent/skills/ · ~/.claude/skills/）'
+              '默认目录（~/.codex/skills/ · ~/.agents/skills/ · ~/.claude/skills/）'
             )
             applyFilter(true)
           } catch (e) {
