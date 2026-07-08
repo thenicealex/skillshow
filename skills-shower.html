@@ -73,6 +73,9 @@
       * {
         box-sizing: border-box;
       }
+      .hidden {
+        display: none !important;
+      }
       html,
       body {
         height: 100%;
@@ -379,6 +382,12 @@
         position: relative;
         overflow: hidden;
         cursor: pointer;
+        user-select: none;
+      }
+      .dropzone:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+        border-color: var(--accent);
       }
       .dropzone::before {
         content: '';
@@ -1185,8 +1194,8 @@
         <span class="meta" id="sizeMeta"></span>
       </div>
 
-      <div class="dropzone" id="dropzone">
-        将包含 skills 的<b>文件夹拖拽到此处</b>，或点击上方「选择文件夹」
+      <div class="dropzone" id="dropzone" role="button" tabindex="0">
+        将包含 skills 的<b>文件夹拖拽到此处</b>，或点击此区域选择文件夹
         <div class="hint">
           每个含 <b>SKILL.md</b> 的子目录会被识别为一个 skill
         </div>
@@ -1196,7 +1205,7 @@
       <div class="empty hidden" id="emptyState">
         <div class="big">📂</div>
         <div class="msg" id="emptyMsg">
-          还没有扫描到 skills。选择一个包含 <b>SKILL.md</b> 的目录开始吧。
+          还没有选择待导入的目录。请选择一个包含 <b>SKILL.md</b> 的目录开始扫描。
         </div>
         <div class="sub" id="emptySub"></div>
       </div>
@@ -1721,7 +1730,7 @@
           } else {
             big.textContent = '📂'
             msg.innerHTML =
-              '还没有扫描到 skills。选择一个包含 <b>SKILL.md</b> 的目录开始吧。'
+              '还没有选择待导入的目录。请选择一个包含 <b>SKILL.md</b> 的目录开始扫描。'
             sub.textContent = ''
           }
           return
@@ -1748,7 +1757,7 @@
         <div class="name">${esc(s.name)}</div>
         <span class="src" style="--sc:${src.color}">${src.label}</span>
       </div>
-      <div class="desc">${esc(s.description || '（无描述）')}</div>
+      <div class="desc" title="${esc(s.description || '（无描述）')}">${esc(s.description || '（无描述）')}</div>
       <div class="tags">${tags}</div>
       <div class="foot"><span>${fmtSize(s.size)} · ${s.fileCount} 文件</span><span>${fmtDate(s.lastModified)}</span></div>
     `
@@ -2081,8 +2090,7 @@
         }
       }
 
-      // Picker (File System Access API) with fallback to webkitdirectory input
-      $('pickBtn').addEventListener('click', async () => {
+      async function chooseDirectory() {
         if (window.showDirectoryPicker) {
           try {
             const { files, dirName } = await filesFromPicker()
@@ -2094,7 +2102,10 @@
           }
         }
         $('dirInput').click()
-      })
+      }
+
+      // Picker (File System Access API) with fallback to webkitdirectory input
+      $('pickBtn').addEventListener('click', chooseDirectory)
 
       $('dirInput').addEventListener('change', async (e) => {
         const files = filesFromInput(e.target.files)
@@ -2123,6 +2134,12 @@
         if (!items.length) return
         const files = await filesFromDrop(items)
         await ingest(files, '拖入的文件夹')
+      })
+      dz.addEventListener('click', chooseDirectory)
+      dz.addEventListener('keydown', (e) => {
+        if (e.key !== 'Enter' && e.key !== ' ') return
+        e.preventDefault()
+        chooseDirectory()
       })
 
       // Search & sort
